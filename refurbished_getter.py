@@ -9,11 +9,11 @@ def selector(obj, aux):
 
   print("Selecione a fruta desejada:")
 
-  for i in obj["fruits"]:
-      print str(aux) + " - " + i["name"] + ": " + str(i["price"])
+  for i in obj:
+      print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
       aux = aux + 1
     
-  getInput(aux)
+  return getInput(aux)
 
 def getInput(aux):
     while True:
@@ -29,7 +29,10 @@ def getInput(aux):
         else:
             break
 
-    fruit = input("")
+    return value
+
+def detailer(obj):
+  return obj["name"] + "\nPrice:  $" + str(obj["price"]) + "\nPreco: R$" + str(obj["price"]*3.5)
 
 def main():
   os.system('cls||clear')
@@ -39,9 +42,11 @@ def main():
   dolarToReal = 3.5
   fruit = 0
 
-  fruitsJson = getContent(url)
+  fruitsJson = getContent(url)["fruits"]
   
-  selector(fruitsJson, counter)
+  fruit = selector(fruitsJson, counter)
+  
+  print detailer(fruitsJson[fruit])
 
 if __name__ == "__main__":
   main()
