@@ -1,5 +1,8 @@
 #coding: utf-8
 
+import os
+os.system('cls||clear')
+
 import urllib, json
 url = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fruits.json"
 response = urllib.urlopen(url)
@@ -9,7 +12,7 @@ data = json.loads(response.read())
 aux = 0
 dolarToReal = 3.5
 
-print len(data["fruits"])
+# print len(data["fruits"])
 
 print("Selecione a fruta desejada:")
 
