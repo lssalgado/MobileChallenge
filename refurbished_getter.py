@@ -42,7 +42,7 @@ def getInput(aux):
 
 def detailer(obj):
     return obj["name"] + "\nPrice:  $" + \
-        str(obj["price"]) + u"\nPreço: R$" + str(obj["price"] * 3.5)
+    str(obj["price"]) + u"\nPreço: R$" + str(obj["price"] * 3.5)
 
 
 def main():
