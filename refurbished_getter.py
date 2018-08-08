@@ -4,19 +4,19 @@
 import os, urllib, json
 
 def getContent(str):
-  response = urllib.urlopen(str)
-  data = json.loads(response.read())
-  return data
+    response = urllib.urlopen(str)
+    data = json.loads(response.read())
+    return data
 
 def selector(obj, aux):
 
   print(u"Frutas disponíveis:\n")
 
-  for i in obj:
-      print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
-      aux = aux + 1
+    for i in obj:
+        print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
+        aux = aux + 1
     
-  return getInput(aux)
+    return getInput(aux)
 
 def getInput(aux):
     while True:
@@ -52,4 +52,4 @@ def main():
   print "\n" + str(fruit) + " - " + detailer(fruitsJson[fruit])
 
 if __name__ == "__main__":
-  main()
+    main()
