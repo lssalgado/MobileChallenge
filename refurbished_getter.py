@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf8 -*-
+
 import os, urllib, json
 
 def getContent(str):
@@ -7,7 +10,7 @@ def getContent(str):
 
 def selector(obj, aux):
 
-  print("Selecione a fruta desejada:")
+  print(u"Frutas disponíveis:\n")
 
   for i in obj:
       print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
@@ -17,7 +20,7 @@ def selector(obj, aux):
 
 def getInput(aux):
     while True:
-        value = raw_input('')
+        value = raw_input('\nFruta desejada: ')
         try:
             value = int(value)
         except:
@@ -32,7 +35,7 @@ def getInput(aux):
     return value
 
 def detailer(obj):
-  return obj["name"] + "\nPrice:  $" + str(obj["price"]) + "\nPreco: R$" + str(obj["price"]*3.5)
+  return obj["name"] + "\nPrice:  $" + str(obj["price"]) + u"\nPreço: R$" + str(obj["price"]*3.5)
 
 def main():
   os.system('cls||clear')
@@ -46,7 +49,7 @@ def main():
   
   fruit = selector(fruitsJson, counter)
   
-  print detailer(fruitsJson[fruit])
+  print "\n" + str(fruit) + " - " + detailer(fruitsJson[fruit])
 
 if __name__ == "__main__":
   main()
