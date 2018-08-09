@@ -10,9 +10,11 @@ fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fr
 
 
 def getJson(url):
+    print "Loading . . ."
     global fruitsJson
     response = urllib.urlopen(url)
     fruitsJson = json.loads(response.read())
+    os.system("cls||clear")
     return fruitsJson
 
 
@@ -29,38 +31,60 @@ def jsonIterator(obj):
 
     for i in obj:
         print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
-        i[u"preço"] = valueExchange(i["price"])
+        i[u"preço"] = "%0.2f" % valueExchange(i["price"])
+        i[u"price"] = "%0.2f" % i[u"price"]
         aux = aux + 1
 
     return
 
 
-def validateOption(number):
-    while True:
-        value = number
-        try:
-            value = int(value)
-        except BaseException:
-            print "Opcao invalida, favor selecionar uma fruta:"
-            continue
-        if value < 0 or value > aux:
-            print "Opcao invalida, favor selecionar uma fruta:"
+def validateOption(number, aux):
 
-        else:
-            break
+    value = number
+    try:
+        value = int(value)
+    except BaseException:
+        print u"Opcao inválida."
+        return True
+    if value < 0 or value > aux:
+        print u"Opcao inválida."
+        return True
 
-    return value
+    else:
+        return False
 
 
-def buildString(objs):
-    return
+def getInput(aux):
+    selectedFruit = raw_input("\nSelecione a fruta desejada: ")
+    while validateOption(selectedFruit, aux):
+        selectedFruit = getInput(aux)
+
+    return int(selectedFruit)
+
+
+def buildString(objs, number):
+    return "\n" + str(number) + \
+        " - " + objs[number]["name"] + "\nPrice:  $" + \
+        str(objs[number]["price"]) + u"\nPreço: R$" + \
+        str(objs[number][u"preço"])
+
+
+def restart():
+    if raw_input(u"Pressione Enter para recomecar.") == "":
+        main()
 
 
 def main():
+
+    os.system("cls||clear")
+
     fruitsJson = getJson(fruitsUrl)["fruits"]
     jsonIterator(fruitsJson)
-    validateOption(raw_input(""))
-    # print fruitsJson[1][u"preço"]
+    selectedFruit = getInput(len(fruitsJson))
+
+    print buildString(fruitsJson, selectedFruit)
+
+    restart()
 
 
 if __name__ == "__main__":
