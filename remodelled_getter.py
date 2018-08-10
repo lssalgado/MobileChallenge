@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import os
-import urllib
+import requests
 import json
 import math
 
@@ -10,12 +10,12 @@ fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fr
 
 
 def getJson(url):
-    print "Loading . . ."
-    global fruitsJson
-    response = urllib.urlopen(url)
-    fruitsJson = json.loads(response.read())
-    os.system("cls||clear")
-    return fruitsJson
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print "Erro %s ao acessar %s" (response.status_code, url)
 
 
 def valueExchange(number):
