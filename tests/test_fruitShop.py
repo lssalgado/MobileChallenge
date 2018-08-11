@@ -18,8 +18,8 @@ wrongJson = [{"name": 1, "image": "asdasd", "price": "0", u"preço": "0"},
 finalString = u"\n%i - %s\nPrice:  $%s\nPreço: R$%s"
 
 
-class TestDetailer(unittest.TestCase):
-    def test_buildString(self):
+class TestBuildString(unittest.TestCase):
+    def test_buildString_success(self):
         i = 0
         while i < len(mockedJson):
             self.assertEquals(buildString(mockedJson, i), finalString % (
