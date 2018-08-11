@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import unittest
-from remodelled_getter import buildString
+from fruitShop import buildString
 
 mockedJson = [{"name": "batata", "image": "asdasd", "price": "0", u"preço": "0"},
               {"name": "batata", "image": "asdasd", "price": "1", u"preço": "3.50"},
