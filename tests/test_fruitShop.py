@@ -46,6 +46,7 @@ class TestJsonIterator(unittest.TestCase):
 
         self.finalList = ['0 - Batata: $1.76', '1 - Laranja: $2.55', '2 - Hamburguer: $3.50',
                           '3 - Uva: $4.00', '4 - Arroz: $5.00']
+        self.returnedList = jsonIterator(self.mockedList)
 
         self.finalList1 = [{"name": "batata", "image": "asdasd", "price": 1.757, u"preço":6.15},
                           {"name": "Laranja", "image": "asdasd", "price": 2.55, u"preço":8.93},
@@ -59,14 +60,15 @@ class TestJsonIterator(unittest.TestCase):
 
     def test_jsonIterator_success(self):
         
-        returnedList = jsonIterator(self.mockedList)
-
-        self.assertEquals(len(returnedList), 5)
-        self.assertEquals(returnedList, self.finalList)
+        self.assertEquals(len(self.returnedList), 5)
+        self.assertEquals(self.returnedList, self.finalList)
    
     def test_jsonIterator_typeError(self):
         
-        self.assertRaises(TypeError, jsonIterator(self.mockedList))
+        # Força um type error pois os valores já foram alterados#
+
+        with self.assertRaises(TypeError):
+            jsonIterator(self.mockedList)
         
 
 
@@ -103,16 +105,16 @@ class TestJsonIterator(unittest.TestCase):
 class TestBuildString(unittest.TestCase):
     def setUp(self):
         self.mockedList = [
-            {"name": "batata", "image": "asdasd", "price": "0", u"preço": "0"},
-            {"name": "batata", "image": "asdasd", "price": "1", u"preço": "3.50"},
-            {"name": "batata", "image": "asdasd", "price": "2.55", u"preço": "8.92"},
-            {"name": "batata", "image": "asdasd", "price": "10", u"preço": "35"},
-            {"name": "batata", "image": "asdasd", "price": "10", u"preço": "35"}]
+            {"name": "batata", "image": "asdasd", "price": "0", u"preço": 0},
+            {"name": "batata", "image": "asdasd", "price": "1", u"preço": 3.50},
+            {"name": "batata", "image": "asdasd", "price": "2.55", u"preço": 8.92},
+            {"name": "batata", "image": "asdasd", "price": "10", u"preço": 35},
+            {"name": "batata", "image": "asdasd", "price": "10", u"preço": 35}]
 
         self.wrongJson = [
-            {"name": 1, "image": "asdasd", "price": "0", u"preço": "0"},
-            {"name": "batata", "image": 1, "price": "0", u"preço": "0"},
-            {"name": "batata", "image": "asdasd", "price": 0, u"preço": "0"},
+            {"name": 1, "image": "asdasd", "price": "0", u"preço": 0},
+            {"name": "batata", "image": 1, "price": "0", u"preço": 0},
+            {"name": "batata", "image": "asdasd", "price": 0, u"preço": 0},
             {"name": "batata", "image": "asdasd", "price": "0", u"preço": 0}]
 
         self.finalString = u"\n%i - %s\nPrice:  $%s\nPreço: R$%s"
