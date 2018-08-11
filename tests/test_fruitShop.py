@@ -78,14 +78,16 @@ class TestValidateOption(unittest.TestCase):
     # Casos onde a opção selecionada é válida #
     def test_validateOption_valid(self):
         self.assertEquals(validateOption(0, 10), False)
-        self.assertEquals(validateOption(10, 10), False)
-        self.assertEquals(validateOption(0, 0), False)
+        self.assertEquals(validateOption(9, 10), False)
+        self.assertEquals(validateOption(0, 1), False)
         self.assertEquals(validateOption(5, 10), False)
 
     # Casos onde é necessário escolher uma nova opção #
     def test_validateOption_invalid(self):
         self.assertEquals(validateOption(1, 0), True)
         self.assertEquals(validateOption(-1, 5), True)
+        self.assertEquals(validateOption(5, 5), True)
+        self.assertEquals(validateOption(0, 0), True)
         self.assertEquals(validateOption("a", 5), True)
         self.assertEquals(validateOption("ç", 5), True)
         self.assertEquals(validateOption("", 5), True)

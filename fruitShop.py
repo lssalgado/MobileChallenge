@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*-
 
 from requests_futures.sessions import FuturesSession
+import threading
 import os
 import requests
 import json
@@ -10,18 +11,34 @@ import time
 
 fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fruits.json"
 session = FuturesSession()
+tempFruitsJson = 0
 
-rodando = True
+waiting = [True, True]
+
+def getResponse1():
+    global waiting, tempFruitsJson
+    r = requests.get(fruitsUrl)
+    waiting[0] = False
+    tempFruitsJson = r.json()
+
+def getJson1():
+    threading.Thread(target=getResponse).start()
+    print "Acessando Url ",
+    while waiting[0]:
+        print ".",
+        time.sleep(0.1)
+    return tempFruitsJson
+        
 
 def getResponse(sess, resp):
-    global rodando
-    rodando = False
+    global waiting
+    waiting[0] = False
     resp.data = resp.json()
 
-def getJson(url):
+def getJson():
     future = session.get(fruitsUrl, background_callback=getResponse)
     print "Acessando Url ",
-    while rodando == True:
+    while waiting[0] == True:
         print ".",
         time.sleep(0.1)
     response = future.result()
@@ -58,7 +75,7 @@ def validateOption(number, aux):
     except BaseException:
         print u"Opcao inválida."
         return True
-    if value < 0 or value > aux:
+    if value < 0 or value > (aux - 1):
         print u"Opcao inválida."
         return True
 
@@ -88,12 +105,14 @@ def restart():
 
 def main():
 
+    # fruitsJson = {}
+
     os.system("cls||clear")
 
-    fruitsJson = getJson(fruitsUrl)["fruits"]
+    fruitsJson = getJson()["fruits"]
 
 
-    print(u"Frutas disponíveis:\n")
+    print(u"\nFrutas disponíveis:\n")
     for i in jsonIterator(fruitsJson):
         print i
 
