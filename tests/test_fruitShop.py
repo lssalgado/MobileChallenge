@@ -48,28 +48,31 @@ class TestJsonIterator(unittest.TestCase):
                           '3 - Uva: $4.00', '4 - Arroz: $5.00']
         self.returnedList = jsonIterator(self.mockedList)
 
-        self.finalList1 = [{"name": "batata", "image": "asdasd", "price": 1.757, u"preço":6.15},
-                          {"name": "Laranja", "image": "asdasd", "price": 2.55, u"preço":8.93},
-                          {"name": "hamburguer", "image": "asdasd", "price": 3.5, u"preço":12.25},
-                          {"name": "Uva", "image": "asdasd", "price": 4, u"preço":14},
-                          {"name": "arroz", "image": "asdasd", "price": 5, u"preço":17.5}]
+        self.finalList1 = [{"name": "batata", "image": "asdasd", "price": 1.757, u"preço": 6.15},
+                           {"name": "Laranja", "image": "asdasd",
+                               "price": 2.55, u"preço": 8.93},
+                           {"name": "hamburguer", "image": "asdasd",
+                               "price": 3.5, u"preço": 12.25},
+                           {"name": "Uva", "image": "asdasd",
+                               "price": 4, u"preço": 14},
+                           {"name": "arroz", "image": "asdasd", "price": 5, u"preço": 17.5}]
 
     def tearDown(self):
         del self.mockedList
         del self.finalList
 
     def test_jsonIterator_success(self):
-        
+
         self.assertEquals(len(self.returnedList), 5)
         self.assertEquals(self.returnedList, self.finalList)
-   
+
     def test_jsonIterator_typeError(self):
-        
+
         # Força um type error pois os valores já foram alterados#
 
         with self.assertRaises(TypeError):
             jsonIterator(self.mockedList)
-        
+
 
 class TestValidateOption(unittest.TestCase):
     # Casos onde a opção selecionada é válida #
@@ -86,7 +89,6 @@ class TestValidateOption(unittest.TestCase):
         self.assertEquals(validateOption("a", 5), True)
         self.assertEquals(validateOption("ç", 5), True)
         self.assertEquals(validateOption("", 5), True)
-
 
 
 class TestBuildString(unittest.TestCase):
