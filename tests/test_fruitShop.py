@@ -126,7 +126,7 @@ class TestBuildString(unittest.TestCase):
         i = 0
         while i < len(self.mockedList):
             self.assertEquals(buildString(self.mockedList, i), self.finalString % (
-                i, self.mockedList[i]["name"], self.mockedList[i]["price"], self.mockedList[i][u"preço"]))
+                i, self.mockedList[i]["name"].capitalize(), self.mockedList[i]["price"], self.mockedList[i][u"preço"]))
             i += 1
 
     def test_buildString_typeError(self):
