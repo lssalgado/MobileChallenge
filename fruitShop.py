@@ -1,21 +1,31 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
+from requests_futures.sessions import FuturesSession
 import os
 import requests
 import json
 import math
+import time
 
 fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fruits.json"
+session = FuturesSession()
 
+rodando = True
+
+def getResponse(sess, resp):
+    global rodando
+    rodando = False
+    resp.data = resp.json()
 
 def getJson(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        print "Erro %s ao acessar %s" (response.status_code, url)
+    future = session.get(fruitsUrl, background_callback=getResponse)
+    print "Acessando Url ",
+    while rodando == True:
+        print ".",
+        time.sleep(0.1)
+    response = future.result()
+    return response.data
 
 
 def exchangeValue(number):
