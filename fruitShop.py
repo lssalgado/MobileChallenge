@@ -20,15 +20,22 @@ cExchanger.restype = c_double
 
 waiting = [True, True]
 
-def getResponse():
-    global waiting, tempFruitsJson
+def getResponse(*obj):
+    if obj and waiting:
+        tempFruitsJson = obj[0]
+        waiting = obj[1]
+    else:
+        global waiting, tempFruitsJson
     r = requests.get(fruitsUrl)
     waiting[0] = False
     tempFruitsJson = r.json()
 
 
-def exchangeValue():
-    global tempFruitsJson
+def exchangeValue(*obj):
+    if obj:
+        tempFruitsJson = obj[0]
+    else:
+        global tempFruitsJson
     for i in tempFruitsJson["fruits"]:
         value = float(i["price"])
         i[u"preço"] = "%0.2f" %  cExchanger(value)
@@ -105,9 +112,7 @@ def restart():
 
 def main():
 
-    # fruitsJson = {}
-
-    os.system("cls||clear")
+    # os.system("cls||clear")
 
     fruitsJson = getJson()["fruits"]
 
