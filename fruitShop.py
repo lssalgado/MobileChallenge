@@ -18,7 +18,7 @@ def getJson(url):
         print "Erro %s ao acessar %s" (response.status_code, url)
 
 
-def valueExchange(number):
+def exchangeValue(number):
     valor = math.ceil(number * 350) / 100
     return valor
 
@@ -31,7 +31,7 @@ def jsonIterator(obj):
 
     for i in obj:
         print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
-        i[u"preço"] = "%0.2f" % valueExchange(i["price"])
+        i[u"preço"] = "%0.2f" % exchangeValue(i["price"])
         i[u"price"] = "%0.2f" % i[u"price"]
         aux = aux + 1
 
