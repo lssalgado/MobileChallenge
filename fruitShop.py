@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf8 -*-
 
-from requests_futures.sessions import FuturesSession
 import threading
 import os
 import requests
@@ -11,7 +10,7 @@ import time
 from ctypes import *
 
 fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fruits.json"
-session = FuturesSession()
+
 tempFruitsJson = 0
 
 cExchanger_lib = cdll.LoadLibrary("main.so")
@@ -48,11 +47,6 @@ def getJson():
         print ".",
         time.sleep(0.1)
     return tempFruitsJson
-        
-
-def exchangeValue1(number):
-    valor = math.ceil(number * 350) / 100
-    return valor
     
 
 def jsonIterator(obj):
