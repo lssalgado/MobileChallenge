@@ -15,13 +15,13 @@ tempFruitsJson = 0
 
 waiting = [True, True]
 
-def getResponse1():
+def getResponse():
     global waiting, tempFruitsJson
     r = requests.get(fruitsUrl)
     waiting[0] = False
     tempFruitsJson = r.json()
 
-def getJson1():
+def getJson():
     threading.Thread(target=getResponse).start()
     print "Acessando Url ",
     while waiting[0]:
@@ -29,21 +29,6 @@ def getJson1():
         time.sleep(0.1)
     return tempFruitsJson
         
-
-def getResponse(sess, resp):
-    global waiting
-    waiting[0] = False
-    resp.data = resp.json()
-
-def getJson():
-    future = session.get(fruitsUrl, background_callback=getResponse)
-    print "Acessando Url ",
-    while waiting[0] == True:
-        print ".",
-        time.sleep(0.1)
-    response = future.result()
-    return response.data
-
 
 def exchangeValue(number):
     valor = math.ceil(number * 350) / 100
@@ -58,8 +43,8 @@ def jsonIterator(obj):
 
     for i in obj:
         
-        i[u"preço"] = "%0.2f" % exchangeValue(i["price"])
-        i[u"price"] = "%0.2f" % i[u"price"]
+        i[u"preço"] = "%0.2f" % exchangeValue(float(i["price"]))
+        i[u"price"] = "%0.2f" % float(i[u"price"])
 
         fruitsArray.append(str(aux) + " - " + i["name"].capitalize() + ": $" + str(i["price"]))
         aux = aux + 1
@@ -112,7 +97,7 @@ def main():
     fruitsJson = getJson()["fruits"]
 
 
-    print(u"\nFrutas disponíveis:\n")
+    print(u"\n\nFrutas disponíveis:\n")
     for i in jsonIterator(fruitsJson):
         print i
 
