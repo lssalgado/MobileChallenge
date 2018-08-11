@@ -38,17 +38,7 @@ from fruitShop import buildString, jsonIterator, validateOption
 
 class TestJsonIterator(unittest.TestCase):
     def setUp(self):
-        self.mockedList = [{"name": "batata", "image": "asdasd", "price": 1.757},
-                           {"name": "Laranja", "image": "asdasd", "price": 2.55},
-                           {"name": "hamburguer", "image": "asdasd", "price": 3.5},
-                           {"name": "Uva", "image": "asdasd", "price": 4},
-                           {"name": "arroz", "image": "asdasd", "price": 5}]
-
-        self.finalList = ['0 - Batata: $1.76', '1 - Laranja: $2.55', '2 - Hamburguer: $3.50',
-                          '3 - Uva: $4.00', '4 - Arroz: $5.00']
-        self.returnedList = jsonIterator(self.mockedList)
-
-        self.finalList1 = [{"name": "batata", "image": "asdasd", "price": 1.757, u"preço": 6.15},
+        self.mockedList = [{"name": "batata", "image": "asdasd", "price": 1.757, u"preço": 6.15},
                            {"name": "Laranja", "image": "asdasd",
                                "price": 2.55, u"preço": 8.93},
                            {"name": "hamburguer", "image": "asdasd",
@@ -57,21 +47,29 @@ class TestJsonIterator(unittest.TestCase):
                                "price": 4, u"preço": 14},
                            {"name": "arroz", "image": "asdasd", "price": 5, u"preço": 17.5}]
 
+        self.finalList = ['0 - Batata: $1.76', '1 - Laranja: $2.55', '2 - Hamburguer: $3.50',
+                          '3 - Uva: $4.00', '4 - Arroz: $5.00']
+        self.returnedList = jsonIterator(self.mockedList)
+
+        self.wrongList = [{"name": "batata", "image": "asdasd", "price": 1.757}]
+
     def tearDown(self):
         del self.mockedList
         del self.finalList
 
     def test_jsonIterator_success(self):
 
+        # Valida o tamanho e conteúdo da lista retornada #
+        
         self.assertEquals(len(self.returnedList), 5)
         self.assertEquals(self.returnedList, self.finalList)
 
     def test_jsonIterator_typeError(self):
 
-        # Força um type error pois os valores já foram alterados#
+        # Simula um KeyError ao passar uma lista com chaves faltando #
 
-        with self.assertRaises(TypeError):
-            jsonIterator(self.mockedList)
+        with self.assertRaises(KeyError):
+            jsonIterator(self.wrongList)
 
 
 class TestValidateOption(unittest.TestCase):

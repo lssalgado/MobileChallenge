@@ -8,10 +8,16 @@ import requests
 import json
 import math
 import time
+from ctypes import *
 
 fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fruits.json"
 session = FuturesSession()
 tempFruitsJson = 0
+
+cExchanger_lib = cdll.LoadLibrary("main.so")
+cExchanger = cExchanger_lib.valueExchanger
+cExchanger.argtypes = [c_double]
+cExchanger.restype = c_double
 
 waiting = [True, True]
 
@@ -21,19 +27,33 @@ def getResponse():
     waiting[0] = False
     tempFruitsJson = r.json()
 
+
+def exchangeValue():
+    global tempFruitsJson
+    for i in tempFruitsJson["fruits"]:
+        value = float(i["price"])
+        i[u"preço"] = "%0.2f" %  cExchanger(value)
+    waiting[1] = False
+    
+
 def getJson():
     threading.Thread(target=getResponse).start()
-    print "Acessando Url ",
+    print "Acessando Url .",
     while waiting[0]:
+        print ".",
+        time.sleep(0.1)
+    threading.Thread(target=exchangeValue).start()
+    print "\n\nConvertendo Valores .",
+    while waiting[1]:
         print ".",
         time.sleep(0.1)
     return tempFruitsJson
         
 
-def exchangeValue(number):
+def exchangeValue1(number):
     valor = math.ceil(number * 350) / 100
     return valor
-
+    
 
 def jsonIterator(obj):
 
@@ -43,7 +63,8 @@ def jsonIterator(obj):
 
     for i in obj:
         
-        i[u"preço"] = "%0.2f" % exchangeValue(float(i["price"]))
+
+        i[u"preço"] = "%0.2f" % float(i[u"preço"])
         i[u"price"] = "%0.2f" % float(i[u"price"])
 
         fruitsArray.append(str(aux) + " - " + i["name"].capitalize() + ": $" + str(i["price"]))
