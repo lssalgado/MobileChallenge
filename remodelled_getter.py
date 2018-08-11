@@ -64,7 +64,7 @@ def getInput(aux):
 
 def buildString(objs, number):
     return "\n" + str(number) + \
-        " - " + objs[number]["name"] + "\nPrice:  $" + \
+        " - " + str(objs[number]["name"]) + "\nPrice:  $" + \
         str(objs[number]["price"]) + u"\nPreço: R$" + \
         str(objs[number][u"preço"])
 
