@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import unittest
-from fruitShop import buildString, jsonIterator
+from fruitShop import buildString, jsonIterator, validateOption
 
 
 # class TestGetJson(unittest.TestCase):
@@ -71,35 +71,22 @@ class TestJsonIterator(unittest.TestCase):
             jsonIterator(self.mockedList)
         
 
+class TestValidateOption(unittest.TestCase):
+    # Casos onde a opção selecionada é válida #
+    def test_validateOption_valid(self):
+        self.assertEquals(validateOption(0, 10), False)
+        self.assertEquals(validateOption(10, 10), False)
+        self.assertEquals(validateOption(0, 0), False)
+        self.assertEquals(validateOption(5, 10), False)
 
-# class TestGetInput(unittest.TestCase):
-#     def test_buildString_success(self):
-#         i = 0
-#         while i < len(mockedList):
-#             self.assertEquals(buildString(mockedList, i), finalString % (
-#                 i, mockedList[i]["name"], mockedList[i]["price"], mockedList[i][u"preço"]))
-#             i += 1
+    # Casos onde é necessário escolher uma nova opção #
+    def test_validateOption_invalid(self):
+        self.assertEquals(validateOption(1, 0), True)
+        self.assertEquals(validateOption(-1, 5), True)
+        self.assertEquals(validateOption("a", 5), True)
+        self.assertEquals(validateOption("ç", 5), True)
+        self.assertEquals(validateOption("", 5), True)
 
-#     def test_buildString_typeError(self):
-#         i = 0
-#         while i < len(wrongJson):
-#             self.assertRaises(TypeError, buildString(wrongJson,i))
-#             i += 1
-
-
-# class TestValidateOption(unittest.TestCase):
-#     def test_buildString_success(self):
-#         i = 0
-#         while i < len(mockedList):
-#             self.assertEquals(buildString(mockedList, i), finalString % (
-#                 i, mockedList[i]["name"], mockedList[i]["price"], mockedList[i][u"preço"]))
-#             i += 1
-
-#     def test_buildString_typeError(self):
-#         i = 0
-#         while i < len(wrongJson):
-#             self.assertRaises(TypeError, buildString(wrongJson,i))
-#             i += 1
 
 
 class TestBuildString(unittest.TestCase):
@@ -114,8 +101,8 @@ class TestBuildString(unittest.TestCase):
         self.wrongJson = [
             {"name": 1, "image": "asdasd", "price": "0", u"preço": 0},
             {"name": "batata", "image": 1, "price": "0", u"preço": 0},
-            {"name": "batata", "image": "asdasd", "price": 0, u"preço": 0},
-            {"name": "batata", "image": "asdasd", "price": "0", u"preço": 0}]
+            {"name": "batata", "image": "asdasd", "price": "asdasd", u"preço": 0},
+            {"name": "batata", "image": "asdasd", "price": "0", u"preço": "asdasdasd"}]
 
         self.finalString = u"\n%i - %s\nPrice:  $%s\nPreço: R$%s"
 
@@ -124,6 +111,7 @@ class TestBuildString(unittest.TestCase):
         del self.wrongJson
         del self.finalString
 
+    # Valida os casos onde é esperado sucesso #
     def test_buildString_success(self):
         i = 0
         while i < len(self.mockedList):
@@ -131,6 +119,7 @@ class TestBuildString(unittest.TestCase):
                 i, self.mockedList[i]["name"].capitalize(), self.mockedList[i]["price"], self.mockedList[i][u"preço"]))
             i += 1
 
+    # Valida que o método está protegido a erros de tipagem #
     def test_buildString_typeError(self):
         i = 0
         while i < len(self.wrongJson):
