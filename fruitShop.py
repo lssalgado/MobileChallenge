@@ -27,15 +27,17 @@ def jsonIterator(obj):
 
     aux = 0
 
-    print(u"Frutas disponíveis:\n")
+    fruitsArray = []
 
     for i in obj:
-        print str(aux) + " - " + i["name"] + ": $" + str(i["price"])
+        
         i[u"preço"] = "%0.2f" % exchangeValue(i["price"])
         i[u"price"] = "%0.2f" % i[u"price"]
+
+        fruitsArray.append(str(aux) + " - " + i["name"].capitalize() + ": $" + str(i["price"]))
         aux = aux + 1
 
-    return
+    return fruitsArray
 
 
 def validateOption(number, aux):
@@ -64,7 +66,7 @@ def getInput(aux):
 
 def buildString(objs, number):
     return "\n" + str(number) + \
-        " - " + str(objs[number]["name"]) + "\nPrice:  $" + \
+        " - " + str(objs[number]["name"]).capitalize() + "\nPrice:  $" + \
         str(objs[number]["price"]) + u"\nPreço: R$" + \
         str(objs[number][u"preço"])
 
@@ -79,7 +81,12 @@ def main():
     os.system("cls||clear")
 
     fruitsJson = getJson(fruitsUrl)["fruits"]
-    jsonIterator(fruitsJson)
+
+
+    print(u"Frutas disponíveis:\n")
+    for i in jsonIterator(fruitsJson):
+        print i
+
     selectedFruit = getInput(len(fruitsJson))
 
     print buildString(fruitsJson, selectedFruit)
