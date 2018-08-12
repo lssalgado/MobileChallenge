@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import unittest
-from fruitShop import buildString, jsonIterator, validateOption, getJson
+from fruitShop import buildString, jsonIterator, validateOption, getJson, getResponse, exchangeValue
 
 
 class TestGetJson(unittest.TestCase):
@@ -14,32 +14,51 @@ class TestGetJson(unittest.TestCase):
         del self.mockedJson
 
     def test_getJson_success(self):
-        fruitsJson = getJson()
+        fruitsJson = getJson("")
         self.assertDictEqual(fruitsJson, self.mockedJson)
 
     def test_getJson_exception(self):
         try:
-            getJson()
-        except BaseException as e:
+            getJson("")
+        except exception as e:
             self.fail(repr(e))
 
             
+class TestGetResponse(unittest.TestCase):
+    
+    def setUp(self):
+        self.fruitsJson = {u'fruits': [{u'price': 35, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg', u'name': u'Apple'}, {u'price': 12, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg', u'name': u'Banana'}, {u'price': 45, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg', u'name': u'Grapes'}, {u'price': 200, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg', u'name': u'Pineapple'}, {u'price': 13, u'image': u'http://www.desicomments.com/wp-content/uploads/2017/05/Cherry-Image-600x570.jpg', u'name': u'cherry'}, {u'price': 12.4, u'image': u'http://www.icecreamnation.org/wp-content/uploads/2013/04/Clementine_orange.jpg', u'name': u'clementine'}, {u'price': 9.5, u'image': u'https://www.homenaturalcures.com/wp-content/uploads/olive.jpg', u'name': u'olive'}, {u'price': 8.75, u'image': u'http://cdn2.stylecraze.com/wp-content/uploads/2013/05/tomato-hair-benefits1.jpg', u'name': u'tomato'}, {u'price': 11.75, u'image': u'http://farm3.static.flickr.com/2131/2082287810_47339fc93e.jpg', u'name': u'huckleberry'}, {u'price': 2.75, u'image': u'http://media.mercola.com/assets/images/foodfacts/papaya-nutrition-facts.jpg', u'name': u'papaya'}, {u'price': 5.75, u'image': u'https://www.florihana.com/images/stories/virtuemart/product/FLE019%20-%20LIME.jpg', u'name': u'lime'}, {u'price': 4.75, u'image': u'https://www.organicfacts.net/wp-content/uploads/pear.jpg', u'name': u'pear'}]}
+
+    def tearDown(self):
+        del self.fruitsJson
+
+    def test_getResponse_success(self):
+        self.assertDictContainsSubset(getResponse(""), self.fruitsJson)
+    
+    def test_getResponse_exception(self):
+        try:
+            getResponse("")
+        except exception as e:
+            self.fail(repr(e))
 
 
-# class TestExchangeValue(unittest.TestCase):
-#     def test_buildString_success(self):
-#         i = 0
-#         while i < len(mockedList):
-#             self.assertEquals(buildString(mockedList, i), finalString % (
-#                 i, mockedList[i]["name"], mockedList[i]["price"], mockedList[i][u"preço"]))
-#             i += 1
+class TestExchangeValue(unittest.TestCase):
+    def setUp(self):
+        self.fruitsJson = {u'fruits': [{u'price': 35, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg', u'name': u'Apple'}, {u'price': 12, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg', u'name': u'Banana'}, {u'price': 45, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg', u'name': u'Grapes'}, {u'price': 200, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg', u'name': u'Pineapple'}, {u'price': 13, u'image': u'http://www.desicomments.com/wp-content/uploads/2017/05/Cherry-Image-600x570.jpg', u'name': u'cherry'}, {u'price': 12.4, u'image': u'http://www.icecreamnation.org/wp-content/uploads/2013/04/Clementine_orange.jpg', u'name': u'clementine'}, {u'price': 9.5, u'image': u'https://www.homenaturalcures.com/wp-content/uploads/olive.jpg', u'name': u'olive'}, {u'price': 8.75, u'image': u'http://cdn2.stylecraze.com/wp-content/uploads/2013/05/tomato-hair-benefits1.jpg', u'name': u'tomato'}, {u'price': 11.75, u'image': u'http://farm3.static.flickr.com/2131/2082287810_47339fc93e.jpg', u'name': u'huckleberry'}, {u'price': 2.75, u'image': u'http://media.mercola.com/assets/images/foodfacts/papaya-nutrition-facts.jpg', u'name': u'papaya'}, {u'price': 5.75, u'image': u'https://www.florihana.com/images/stories/virtuemart/product/FLE019%20-%20LIME.jpg', u'name': u'lime'}, {u'price': 4.75, u'image': u'https://www.organicfacts.net/wp-content/uploads/pear.jpg', u'name': u'pear'}]}
+        self.resultJson = {u'fruits': [{u'price': 35, u'pre\xe7o': '122.50', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg', u'name': u'Apple'}, {u'price': 12, u'pre\xe7o': '42.00', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg', u'name': u'Banana'}, {u'price': 45, u'pre\xe7o': '157.50', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg', u'name': u'Grapes'}, {u'price': 200, u'pre\xe7o': '700.00', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg', u'name': u'Pineapple'}, {u'price': 13, u'pre\xe7o': '45.50', u'image': u'http://www.desicomments.com/wp-content/uploads/2017/05/Cherry-Image-600x570.jpg', u'name': u'cherry'}, {u'price': 12.4, u'pre\xe7o': '43.40', u'image': u'http://www.icecreamnation.org/wp-content/uploads/2013/04/Clementine_orange.jpg', u'name': u'clementine'}, {u'price': 9.5, u'pre\xe7o': '33.25', u'image': u'https://www.homenaturalcures.com/wp-content/uploads/olive.jpg', u'name': u'olive'}, {u'price': 8.75, u'pre\xe7o': '30.63', u'image': u'http://cdn2.stylecraze.com/wp-content/uploads/2013/05/tomato-hair-benefits1.jpg', u'name': u'tomato'},{u'price': 11.75, u'pre\xe7o': '41.13', u'image': u'http://farm3.static.flickr.com/2131/2082287810_47339fc93e.jpg', u'name': u'huckleberry'}, {u'price': 2.75, u'pre\xe7o': '9.63', u'image': u'http://media.mercola.com/assets/images/foodfacts/papaya-nutrition-facts.jpg', u'name': u'papaya'}, {u'price': 5.75, u'pre\xe7o': '20.13', u'image': u'https://www.florihana.com/images/stories/virtuemart/product/FLE019%20-%20LIME.jpg', u'name': u'lime'}, {u'price': 4.75, u'pre\xe7o': '16.63', u'image': u'https://www.organicfacts.net/wp-content/uploads/pear.jpg', u'name': u'pear'}]}
 
-#     def test_buildString_typeError(self):
-#         i = 0
-#         while i < len(wrongJson):
-#             self.assertRaises(TypeError, buildString(wrongJson,i))
-#             i += 1
-
+    def tearDown(self):
+        del self.fruitsJson
+    
+    def test_exchangeValue_success(self):
+        self.assertDictContainsSubset(exchangeValue(self.fruitsJson), self.resultJson)
+        
+    def test_exchangeValu_exception(self):
+        try:
+            getJson("")
+        except exception as e:
+            self.fail(repr(e))
+        
 
 class TestJsonIterator(unittest.TestCase):
     def setUp(self):
