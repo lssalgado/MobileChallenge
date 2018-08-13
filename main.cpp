@@ -9,14 +9,7 @@ double valueExchanger(double value){
     return result;
 }
 
-// float caller(int value){
-//     float result = std::async(std::launch::async,valueExchanger,value);
-//     return result;
-// }
-
 int main() 
 {
-    // std::cout << "Hello, World!";
-    // std::cout << valueExchanger(10);
-    // return 0;
+
 }
