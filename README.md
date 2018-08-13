@@ -32,7 +32,9 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
 
 ### Detalhes
 **unittest** é um framework de testes unitários para python. Ele foi utilizado para construir todos os testes encontrados no projeto.
+
 **threading** é um módulo que auxilia na criação e gerenciamento de threads dentro de uma aplicação python. Ele foi utilizado para fazer com que as chamadas ao método em C, assim como o Get na url, fossem realizados assincronamente.
+
 **ctypes** é um módulo que disponibiliza tipos de dado compatíveis com o C, possibilitando utilizar métodos escritos em C dentro da aplicação construída em Python.
 
 ## Estrutura
