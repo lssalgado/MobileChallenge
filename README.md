@@ -28,18 +28,20 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
   * time
   * ctypes
   * unittest
-* Compilador C
+* Compilador C++
 
 ### Detalhes
 **unittest** é um framework de testes unitários para python. Ele foi utilizado para construir todos os testes encontrados no projeto.
+
 **threading** é um módulo que auxilia na criação e gerenciamento de threads dentro de uma aplicação python. Ele foi utilizado para fazer com que as chamadas ao método em C, assim como o Get na url, fossem realizados assincronamente.
+
 **ctypes** é um módulo que disponibiliza tipos de dado compatíveis com o C, possibilitando utilizar métodos escritos em C dentro da aplicação construída em Python.
 
 ## Estrutura
 O projeto está divido em 3 principais arquivos. 
 1. **fruitShop.py** é o script onde a aplicação foi desenvolvida. Deve ser executado para iniciar a aplicação.
-2. **main.so** é o arquivo escrito em C++ que possui a função _valueExchanger(double value)_, responsável por converter o valor de dólar para real.
-3. **test_fruitShop.py**, script onde estão localizados todos os testes unitários responsável por validar o comportamento das funções descritas em **fruitShop.py**.
+2. **main.so** é o arquivo escrito em C++ que possui a função _valueExchanger(double value)_, responsável por converter o valor de dólar para real. Foi utilizado _extern "C"_ para possibilitar a utilização da função através do módulo ctypes.
+3. **test_fruitShop.py**, localizado dentro da pastar tests, é script onde estão todos os testes unitários responsáveis por validar o comportamento das funções descritas em **fruitShop.py**.
 
 ### Arquivos .bat
 Na raiz do projeto existem os 2 seguintes arquivos:
