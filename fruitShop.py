@@ -5,7 +5,6 @@ import threading
 import os
 import requests
 import json
-import math
 import time
 from ctypes import *
 
