@@ -28,7 +28,7 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
   * time
   * ctypes
   * unittest
-* Compilador C
+* Compilador C++
 
 ### Detalhes
 **unittest** é um framework de testes unitários para python. Ele foi utilizado para construir todos os testes encontrados no projeto.
@@ -38,7 +38,7 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
 ## Estrutura
 O projeto está divido em 3 principais arquivos. 
 1. **fruitShop.py** é o script onde a aplicação foi desenvolvida. Deve ser executado para iniciar a aplicação.
-2. **main.so** é o arquivo escrito em C que possui a função _valueExchanger(double value)_, responsável por converter o valor de dólar para real.
+2. **main.so** é o arquivo escrito em C++ que possui a função _valueExchanger(double value)_, responsável por converter o valor de dólar para real. Foi utilizado _extern "C"_ para possibilitar a utilização da função através do módulo ctypes.
 3. **test_fruitShop.py**, script onde estão localizados todos os testes unitários responsável por validar o comportamento das funções descritas em **fruitShop.py**.
 
 ### Arquivos .bat
