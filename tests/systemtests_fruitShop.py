@@ -59,9 +59,28 @@ def checkAllFruits():
         print result 
         
 
+def checkOutOfBounds():
+    blockPrint()
+    expected = u"\n0 - Apple\nPrice:  $35.00\nPreço: R$122.50"
+    fruitsJson = fs.getJson("")["fruits"]
+    fs.jsonIterator(fruitsJson)
+    try:
+        result = fs.buildString(fruitsJson, len(fruitsJson))
+    except:
+        try:
+            result = fs.buildString(fruitsJson, "a")
+        except:
+            enablePrint()
+            print "checkOutOfBounds() PASSED"
+            return
+    enablePrint()
+    print "checkOutOfBounds() FAILED"
+    
+
 def main():
     checkOneFruit()
     checkAllFruits()
+    checkOutOfBounds()
 
 
 if __name__ == "__main__":
