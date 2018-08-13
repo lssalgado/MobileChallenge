@@ -13,6 +13,8 @@ fruitsUrl = "https://raw.githubusercontent.com/muxidev/desafio-android/master/fr
 
 def prepareC():
 
+    # Carrega a biblioteca C++ para possibilitar as chamadas as suas funções #
+
     global cExchanger
 
     cExchanger_lib = cdll.LoadLibrary("main.so")
@@ -22,6 +24,9 @@ def prepareC():
 
 
 def getResponse(*args):
+
+    # Realiza um Get na url e atribui o Json retornado à variável tempFruitsJson #
+
     r = requests.get(fruitsUrl)
     if args:
         return r.json()
@@ -31,6 +36,9 @@ def getResponse(*args):
 
 
 def exchangeValue(*args):
+
+    # Converte os valores de dólar para real e insere a chave 'preço' com seu respectivo valor em cada uma das frutas #
+
     if args:
         tempFruitsJson = args[0]
         prepareC()
@@ -45,6 +53,8 @@ def exchangeValue(*args):
 
 def getJson(*args):
     
+    # Realiza as chamadas à getResponse e exchangeValue assincronamente e retorna o objeto Json já com os valores convertidos #
+
     if args:
         prepareC()
 
@@ -69,6 +79,8 @@ def getJson(*args):
 
 def jsonIterator(obj):
 
+    # Navega por todos as frutas contidas no objeto passado por parâmetro, alterando seus valores para que fiquem todos com duas casas decimais e retorna os nomes e preços em dólar a serem exibidos no menu principal da aplicação #
+
     aux = 0
 
     fruitsArray = []
@@ -87,6 +99,8 @@ def jsonIterator(obj):
 
 def validateOption(number, aux):
 
+    # Valida se a opção passada é valida ou não, retornando False quando é válida e True quando não #
+
     value = number
     try:
         value = int(value)
@@ -102,6 +116,9 @@ def validateOption(number, aux):
 
 
 def getInput(aux):
+
+    # Recebe a opção através do valor digitado no teclado, utiliza validateOption para validar a mesma, retornando a opção apenas quando for uma opção válida #
+
     selectedFruit = raw_input("\nSelecione a fruta desejada: ")
     while validateOption(selectedFruit, aux):
         selectedFruit = getInput(aux)
@@ -110,6 +127,9 @@ def getInput(aux):
 
 
 def buildString(objs, number):
+
+    # Constrói a string a ser printada a partir do objeto e opção passados por parâmetro #
+
     return "\n" + str(number) + \
         " - " + str(objs[number]["name"]).capitalize() + "\nPrice:  $" + \
         str(objs[number]["price"]) + u"\nPreço: R$" + \
@@ -117,12 +137,18 @@ def buildString(objs, number):
 
 
 def restart():
+
+    # Chama a função start para 'recomeçar' a aplicação #
+
     print u"\nPressione Enter para recomeçar."
     if raw_input("") == "":
         start()
 
 
 def start():
+
+    # Realiza todas as chamadas para que a aplicação funcione corretamente #
+
     # os.system("cls||clear")
 
     fruitsJson = getJson()["fruits"]
@@ -139,6 +165,9 @@ def start():
 
 
 def main():
+
+    # Tenta instânciar a função em C++, caso haja algum erro, dispara uma exceção #
+
     try:
         prepareC()
     except exception as e:
