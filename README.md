@@ -1,7 +1,6 @@
 # MobileChallenge
 Este projeto é o resultado do Desafio Muxi Mobile-QA
 
-
 ## O desafio
 Foi proposto o desenvolvimento de uma aplicação que acesse uma url utilizando Get e, a partir do Json obtido, realize as seguintes funcionalidades obrigatórias:
 
@@ -17,7 +16,11 @@ Podendo também apresentar as seguintes funcionalidades extras:
 * Framework para comunicação com API e testes
 * README com explicações sobre o projeto, decisões tomadas, como gerar o programa e como rodar os testes
 
-## Pré-requisitos
+## A solução
+Esse projeto buscou atingir todos os requisitos impostos no desafio, tanto os obrigatórios quanto os extras.
+Para isso foi utilizada a linguagem de programação Python na versão 2.7 em conjunto com diversos módulos disponibilizados gratuitamente.
+
+### Pré-requisitos
 Para que o projeto funcione corretamente, os seguintes Softwares e módulos são necessários:
 * Python 2.7
   * threading
@@ -30,22 +33,23 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
   * unittest
 * Compilador C++
 
-### Detalhes
+#### Detalhes
 **unittest** é um framework de testes unitários para python. Ele foi utilizado para construir todos os testes encontrados no projeto.
 
 **threading** é um módulo que auxilia na criação e gerenciamento de threads dentro de uma aplicação python. Ele foi utilizado para fazer com que as chamadas ao método em C, assim como o Get na url, fossem realizados assincronamente.
 
 **ctypes** é um módulo que disponibiliza tipos de dado compatíveis com o C, possibilitando utilizar métodos escritos em C dentro da aplicação construída em Python.
 
-## Estrutura
-O projeto está divido em 3 principais arquivos. 
+### Estrutura
+O projeto está divido em 4 principais arquivos. 
 1. **fruitShop.py** é o script onde a aplicação foi desenvolvida. Deve ser executado para iniciar a aplicação.
 2. **main.so** é o arquivo escrito em C++ que possui a função _valueExchanger(double value)_, responsável por converter o valor de dólar para real. Foi utilizado _extern "C"_ para possibilitar a utilização da função através do módulo ctypes.
 3. **test_fruitShop.py**, localizado dentro da pastar tests, é script onde estão todos os testes unitários responsáveis por validar o comportamento das funções descritas em **fruitShop.py**.
+4. **systemtests_fruitShop.py**, também encontrado na pasta tests, é o script onde são encontrados os testes sistêmicos, responsáveis por validar o comportamento da aplicação simulando um cenário real.
 
-### Arquivos .bat
+#### Arquivos .bat
 Na raiz do projeto existem os 2 seguintes arquivos:
 1. **runPy.bat** que iniciará a aplicação.
-2. **runTests.bat** que iniciará os testes.
+2. **runTests.bat** que iniciará os testes, primeiro executando os testes unitários para então executar os testes sistêmicos.
 
-Caso o caminho de instalação do python seja diferente do que está nesses arquivos, é necessário alterar para que funcionem corretamente.
+Obs: Caso o caminho de instalação do python seja diferente do que está nesses arquivos, é necessário alterar para que funcionem corretamente.
