@@ -1,2 +1,2 @@
 @echo off
-c:\python27\python.exe fruitShop.py
+c:\python27\python.exe -W ignore fruitShop.py
