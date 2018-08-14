@@ -54,3 +54,21 @@ Na raiz do projeto existem os 2 seguintes arquivos:
 2. **runTests.bat** que iniciará os testes, primeiro executando os testes unitários para então executar os testes sistêmicos.
 
 Obs: Caso o caminho de instalação do python seja diferente do que está nesses arquivos, é necessário alterar para que funcionem corretamente.
+
+## Manual
+### Aplicação
+O arquivo _runPy.bat_ deve ser executado para iniciar a aplicação. Ao ser executado, a aplicação irá acessar a url, consumir seu Json, converter os valores de dólar para real e então listar as frutas disponíveis e esperar que o usuário selecione uma das opções.
+
+![Imagem 1](https://raw.githubusercontent.com/lssalgado/MobileChallenge/master/images/list.png "Imagem 1")
+
+O usuário deverá digitar uma das opções disponíveis e pressionar enter. A aplicação exibirá os detalhes(Nome, preço em dólar e em real) da fruta escolhida e aguadará a ação do usuário para reiniciar a aplicação ou finalizar a mesma.
+
+![Imagem 2](https://raw.githubusercontent.com/lssalgado/MobileChallenge/master/images/fruitDetails.png "Imagem 2")
+
+Caso o usuário pressione Enter sem digitar nada a aplicação chamará a função _start()_, recarregando os dados da url e exibindo a lista de frutas novamente. Caso contrário, a aplicação será finalizada.
+
+### Testes
+Para iniciar os testes, o usuário deve executar o arquivo _runTests.py_ que iniciará os testes. Primeiro serão executados os testes unitários listados no script _test_fruitShop.py_ e em seguida executará os testes sistêmicos descritos no arquivo _systemtests_fruitShop.py_.
+Ao fim da execução, serão exibidos no terminal todos os testes executados e os seus respectivos estados.
+
+![Imagem 3](https://raw.githubusercontent.com/lssalgado/MobileChallenge/master/images/tests.png "Imagem 3")
