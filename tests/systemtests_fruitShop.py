@@ -10,14 +10,17 @@ import fruitShop
 fs = fruitShop
 
 
+# Desabilita o método print #
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
 
 
+# Habilita o método print #
 def enablePrint():
     sys.stdout = sys.__stdout__
 
 
+# Valida o comportamento da aplicação ao simular o fluxo mais simples de utilização #
 def checkOneFruit():
     blockPrint()
     expected = u"\n0 - Apple\nPrice:  $35.00\nPreço: R$122.50"
@@ -36,6 +39,8 @@ def checkOneFruit():
         print result 
         
     
+# Valida o comportamento da aplicação ao simular o fluxo onde todas as frutas são   #
+# selecionadas de utilização                                                        #
 def checkAllFruits():
     blockPrint()
     expected = [u'\n0 - Apple\nPrice:  $35.00\nPre\xe7o: R$122.50', u'\n1 - Banana\nPrice:  $12.00\nPre\xe7o: R$42.00', u'\n2 - Grapes\nPrice:  $45.00\nPre\xe7o: R$157.50', u'\n3 - Pineapple\nPrice:  $200.00\nPre\xe7o: R$700.00', u'\n4 - Cherry\nPrice:  $13.00\nPre\xe7o: R$45.50', u'\n5 - Clementine\nPrice:  $12.40\nPre\xe7o: R$43.40', u'\n6 - Olive\nPrice:  $9.50\nPre\xe7o: R$33.25', u'\n7 - Tomato\nPrice:  $8.75\nPre\xe7o: R$30.63', u'\n8 - Huckleberry\nPrice:  $11.75\nPre\xe7o: R$41.13', u'\n9 - Papaya\nPrice:  $2.75\nPre\xe7o: R$9.63', u'\n10 - Lime\nPrice:  $5.75\nPre\xe7o: R$20.13', u'\n11 - Pear\nPrice:  $4.75\nPre\xe7o: R$16.63']
@@ -57,8 +62,9 @@ def checkAllFruits():
         print expected
         print "\nresult was:"
         print result 
-        
+      
 
+# Valida o comportamento da aplicação selecionar uma opção inválida #
 def checkOutOfBounds():
     blockPrint()
     expected = u"\n0 - Apple\nPrice:  $35.00\nPreço: R$122.50"
