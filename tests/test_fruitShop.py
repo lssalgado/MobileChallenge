@@ -4,8 +4,10 @@
 import unittest
 from fruitShop import buildString, jsonIterator, validateOption, getJson, getResponse, exchangeValue
 
-# Todas as classes possuem métodos setUp(self) e tearDown(self), estas são utilizadas respectivamente #
-# para preparar as variáveis necessárias para os testes e destruir as mesmas                          #
+
+# Todas as classes possuem os métodos setUp(self) e tearDown(self), estas são utilizadas respectivamente #
+# para preparar as variáveis necessárias para os testes e destruir as mesmas                             #
+
 
 # Testes no método getJson #
 class TestGetJson(unittest.TestCase):
@@ -24,13 +26,6 @@ class TestGetJson(unittest.TestCase):
         self.assertDictEqual(fruitsJson, self.mockedJson)
 
 
-    # Valida que o método getJson não está sofrendo nenhuma exceção inesperada #
-    def test_getJson_exception(self):
-        try:
-            getJson("")
-        except exception as e:
-            self.fail(repr(e))
-
 # Testes no método getResponse #
 class TestGetResponse(unittest.TestCase):
     
@@ -45,21 +40,15 @@ class TestGetResponse(unittest.TestCase):
     # Valida se o método getResponse está acessando a url com método Get e retornando um objeto Json #
     def test_getResponse_success(self):
         self.assertDictContainsSubset(getResponse(""), self.fruitsJson)
-    
 
-    # Valida que o método getJson não está sofrendo nenhuma exceção inesperada #
-    def test_getResponse_exception(self):
-        try:
-            getResponse("")
-        except exception as e:
-            self.fail(repr(e))
 
 # Testes no método exchangeValue #
 class TestExchangeValue(unittest.TestCase):
     def setUp(self):
         self.fruitsJson = {u'fruits': [{u'price': 35, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg', u'name': u'Apple'}, {u'price': 12, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg', u'name': u'Banana'}, {u'price': 45, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg', u'name': u'Grapes'}, {u'price': 200, u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg', u'name': u'Pineapple'}, {u'price': 13, u'image': u'http://www.desicomments.com/wp-content/uploads/2017/05/Cherry-Image-600x570.jpg', u'name': u'cherry'}, {u'price': 12.4, u'image': u'http://www.icecreamnation.org/wp-content/uploads/2013/04/Clementine_orange.jpg', u'name': u'clementine'}, {u'price': 9.5, u'image': u'https://www.homenaturalcures.com/wp-content/uploads/olive.jpg', u'name': u'olive'}, {u'price': 8.75, u'image': u'http://cdn2.stylecraze.com/wp-content/uploads/2013/05/tomato-hair-benefits1.jpg', u'name': u'tomato'}, {u'price': 11.75, u'image': u'http://farm3.static.flickr.com/2131/2082287810_47339fc93e.jpg', u'name': u'huckleberry'}, {u'price': 2.75, u'image': u'http://media.mercola.com/assets/images/foodfacts/papaya-nutrition-facts.jpg', u'name': u'papaya'}, {u'price': 5.75, u'image': u'https://www.florihana.com/images/stories/virtuemart/product/FLE019%20-%20LIME.jpg', u'name': u'lime'}, {u'price': 4.75, u'image': u'https://www.organicfacts.net/wp-content/uploads/pear.jpg', u'name': u'pear'}]}
         self.resultJson = {u'fruits': [{u'price': 35, u'pre\xe7o': '122.50', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg', u'name': u'Apple'}, {u'price': 12, u'pre\xe7o': '42.00', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg', u'name': u'Banana'}, {u'price': 45, u'pre\xe7o': '157.50', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg', u'name': u'Grapes'}, {u'price': 200, u'pre\xe7o': '700.00', u'image': u'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg', u'name': u'Pineapple'}, {u'price': 13, u'pre\xe7o': '45.50', u'image': u'http://www.desicomments.com/wp-content/uploads/2017/05/Cherry-Image-600x570.jpg', u'name': u'cherry'}, {u'price': 12.4, u'pre\xe7o': '43.40', u'image': u'http://www.icecreamnation.org/wp-content/uploads/2013/04/Clementine_orange.jpg', u'name': u'clementine'}, {u'price': 9.5, u'pre\xe7o': '33.25', u'image': u'https://www.homenaturalcures.com/wp-content/uploads/olive.jpg', u'name': u'olive'}, {u'price': 8.75, u'pre\xe7o': '30.63', u'image': u'http://cdn2.stylecraze.com/wp-content/uploads/2013/05/tomato-hair-benefits1.jpg', u'name': u'tomato'},{u'price': 11.75, u'pre\xe7o': '41.13', u'image': u'http://farm3.static.flickr.com/2131/2082287810_47339fc93e.jpg', u'name': u'huckleberry'}, {u'price': 2.75, u'pre\xe7o': '9.63', u'image': u'http://media.mercola.com/assets/images/foodfacts/papaya-nutrition-facts.jpg', u'name': u'papaya'}, {u'price': 5.75, u'pre\xe7o': '20.13', u'image': u'https://www.florihana.com/images/stories/virtuemart/product/FLE019%20-%20LIME.jpg', u'name': u'lime'}, {u'price': 4.75, u'pre\xe7o': '16.63', u'image': u'https://www.organicfacts.net/wp-content/uploads/pear.jpg', u'name': u'pear'}]}
-
+        self.onlyPricesJson = {u'fruits': [{u'price':5}, {u'price':10}, {u'price':1.5}, {u'price':20}, {u'price':100}, {u'price':0.5}, {u'price':60}, {u'price':200}, {u'price':25}, {u'price':35}, {u'price':99}, {u'price':9.9}]}
+        self.onlyPricesJsonResult = {u'fruits': [{u'pre\xe7o': '17.50', u'price': 5}, {u'pre\xe7o': '35.00', u'price': 10}, {u'pre\xe7o': '5.25', u'price': 1.5}, {u'pre\xe7o': '70.00', u'price': 20}, {u'pre\xe7o': '350.00', u'price': 100}, {u'pre\xe7o': '1.75', u'price': 0.5}, {u'pre\xe7o': '210.00', u'price': 60}, {u'pre\xe7o': '700.00', u'price': 200}, {u'pre\xe7o': '87.50', u'price': 25}, {u'pre\xe7o': '122.50', u'price': 35}, {u'pre\xe7o': '346.50', u'price': 99}, {u'pre\xe7o': '34.65', u'price': 9.9}]}
 
     def tearDown(self):
         del self.fruitsJson
@@ -68,15 +57,9 @@ class TestExchangeValue(unittest.TestCase):
     # Valida se o método exchangeValue está convertendo os valores de dólar para real corretamente #
     def test_exchangeValue_success(self):
         self.assertDictContainsSubset(exchangeValue(self.fruitsJson), self.resultJson)
-        
+        self.assertDictContainsSubset(exchangeValue(self.onlyPricesJson), self.onlyPricesJsonResult)
 
-    # Valida que o método exchangeValue não está sofrendo nenhuma exceção inesperada #
-    def test_exchangeValue_exception(self):
-        try:
-            getJson("")
-        except exception as e:
-            self.fail(repr(e))
-        
+
 # Testes no método jsonIterator #
 class TestJsonIterator(unittest.TestCase):
     def setUp(self):

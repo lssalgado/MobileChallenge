@@ -31,7 +31,8 @@ Para que o projeto funcione corretamente, os seguintes Softwares e módulos são
   * time
   * ctypes
   * unittest
-* Compilador C++
+* Compilador C++ - Foi utilizado o MingW
+  * Caminho para o compilador incluido no PATH do Windows - _C:\MingW\bin_ por exemplo
 
 #### Detalhes
 **unittest** é um framework de testes unitários para python. Ele foi utilizado para construir todos os testes encontrados no projeto.
